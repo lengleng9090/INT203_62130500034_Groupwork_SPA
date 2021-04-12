@@ -5,7 +5,7 @@
         <th class="w-1/2 ...">รายการ</th>
         <th class="w-1/6 ...">รายรับ</th>
         <th class="w-1/6 ...">รายจ่าย</th>
-        <th class="w-1/6 ...">วัน/เดือน/ปี</th>
+        <th class="w-1/6 ...">ปี/เดือน/วัน</th>
       </tr>
     </thead>
     <tbody>

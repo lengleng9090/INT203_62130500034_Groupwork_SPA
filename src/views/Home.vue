@@ -2,12 +2,17 @@
   <navigation-bar />
   <div class="flex justify-between">
     <div class="inline-block"/>
-    <form class="space-y-6 m-4 p-4 inline-block bg-blue-100 rounded">
+    <form class="space-y-6 m-4 p-4 inline-block bg-blue-100 rounded" @submit.prevent="submitForm">
       <h1>เพิ่มรายการใหม่</h1>
-      <p>รายการ : <input type="text" class="border border-black rounded" /></p>
-      <p>รายรับ : <input type="text" class="border border-black rounded" /></p>
-      <p>รายจ่าย : <input type="text" class="border border-black rounded" /></p>
-      <p>วัน/เดือน/ปี : <input class="bg-white rounded" type="date" /></p>
+      <p>รายการ : <input type="text" class="border border-black rounded" v-model="enteredDescription"/></p>
+      <sup v-show="unavailableDescription">*โปรดเติมข้อความในช่องว่างให้เรียบร้อย</sup>
+      <p>รายรับ : <input type="number" class="border border-black rounded" v-model="enteredReceivable"/></p>
+      <sup v-show="unavailableReceivable">*โปรดระบุจำนวนเงินให้เรียบร้อย (หากไม่มีให้ใส่ 0)</sup>
+      <p>รายจ่าย : <input type="number" class="border border-black rounded" v-model="enteredPayable"/></p>
+      <sup v-show="unavailablePayable">*โปรดระบุจำนวนเงินให้เรียบร้อย (หากไม่มีให้ใส่ 0)</sup>
+      <p>วัน/เดือน/ปี : <input class="bg-white rounded" type="date" v-model="enteredDate"/></p>
+      <sup v-show="unavailableDate">*โปรดระบุ วัน/เดือน/ปี ให้เรียบร้อย</sup>
+      <br>
       <input type="submit" value="ยืนยัน" />
     </form>
     <div class="inline-block"/>
@@ -26,10 +31,31 @@ export default {
   },
   data() {
     return {
+      enteredDescription:"",
+      enteredReceivable:null,
+      enteredPayable:null,
+      enteredDate:"",
+      unavailableDescription:false,
+      unavailableReceivable:false,
+      unavailablePayable:false,
+      unavailableDate:false,
       results: [],
     };
   },
   methods: {
+    submitForm(){
+      this.unavailableDescription = this.enteredDescription === "" ? true : false;
+      this.unavailableReceivable = !this.enteredReceivable ? true : false;
+      this.unavailablePayable = !this.enteredPayable ? true : false;
+      this.unavailableDate = this.enteredDate === "" ? true : false;
+      console.log(this.unavailableDate)
+      if(this.unavailableDescription || this.unavailableReceivable || this.unavailablePayable || this.unavailableDate){
+        return;
+      }
+      this.enteredReceivable = parseInt(this.enteredReceivable);
+      this.enteredPayable = parseInt(this.enteredPayable);
+      this.postData({description:this.enteredDescription,receivable:this.enteredReceivable,payable:this.enteredPayable,date:this.enteredDate});
+    },
     async getData() {
       try {
         const response = await fetch("http://localhost:5000/Ledger");
@@ -39,10 +65,33 @@ export default {
         console.log(error);
       }
     },
+    async postData(newRecord){
+      try{
+        const response = await fetch("http://localhost:5000/Ledger", {
+          method:"POST",
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify({
+            description: newRecord.description,
+            receivable: newRecord.receivable,
+            payable: newRecord.payable,
+            date: newRecord.date
+          })
+        });
+        const data = await response.json();
+        this.results = [...this.results, data];
+      }catch(error){
+        console.log(error);
+      }
+    }
   },
   async created() {
     this.results = await this.getData();
   },
 };
 </script>
+<style scoped>
+sup{
+  color: red;
+}
+</style>
 

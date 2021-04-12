@@ -2,17 +2,17 @@
   "Ledger": [
     {
       "id": 1,
-      "description" : "ซื้อขนม",
+      "description": "ซื้อขนม",
       "receivable": 0,
       "payable": 200,
-      "date": "02/03/2021"
+      "date": "2021-04-16"
     },
     {
       "id": 2,
-      "description" : "ซื้อขนม 2",
+      "description": "ซื้อขนม 2",
       "receivable": 0,
       "payable": 350,
-      "date": "02/03/2021"
+      "date": "2021-04-16"
     }
   ]
 }
