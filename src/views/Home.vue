@@ -1,64 +1,48 @@
 <template>
   <navigation-bar />
   <div class="flex justify-between">
-    <Form/>
+    <div class="inline-block"/>
+    <form class="space-y-6 m-4 p-4 inline-block bg-blue-100 rounded">
+      <h1>เพิ่มรายการใหม่</h1>
+      <p>รายการ : <input type="text" class="border border-black rounded" /></p>
+      <p>รายรับ : <input type="text" class="border border-black rounded" /></p>
+      <p>รายจ่าย : <input type="text" class="border border-black rounded" /></p>
+      <p>วัน/เดือน/ปี : <input class="bg-white rounded" type="date" /></p>
+      <input type="submit" value="ยืนยัน" />
+    </form>
+    <div class="inline-block"/>
   </div>
-  <table class="table-fixed mx-auto p-5">
-    <thead>
-      <tr>
-        <th class="w-1/2 ...">รายการ</th>
-        <th class="w-1/6 ...">รายรับ</th>
-        <th class="w-1/6 ...">รายจ่าย</th>
-        <th class="w-1/6 ...">วัน/เดือน/ปี</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td class="space-x-3">
-          <button>
-          <img src="../../public/img/unchecked.png" width="20" class="inline-block"> 
-          </button>
-          <button>
-          <img src="../../public/img/edit.png" width="20" class="inline-block"> 
-          </button>
-          to CSS
-          </td>
-        <td id="tdcontent">Adam</td>
-        <td id="tdcontent">858</td>
-        <td id="tdcontent"></td>
-      </tr>
-      <tr class="bg-red-200">
-        <td class="space-x-3">
-          <button>
-          <img src="../../public/img/unchecked.png" width="20" class="inline-block"> 
-          </button>
-          <button>
-          <img src="../../public/img/edit.png" width="20" class="inline-block"> 
-          </button>
-          A Long and Winding Tour of the History of UI Frameworks and Tools and
-          the Impact on Design
-        </td>
-        <td id="tdcontent">-</td>
-        <td id="tdcontent">200</td>
-        <td id="tdcontent"></td>
-      </tr>
-    </tbody>
-  </table>
+
+  <Table :results="results" />
 </template>
 
 <script>
-// @ is an alias to /src
-import Form from '@/components/Form.vue'
+import Table from "@/components/Table.vue";
 
 export default {
   name: "Home",
   components: {
-    Form
+    Table,
+  },
+  data() {
+    return {
+      results: [],
+    };
+  },
+  methods: {
+    async getData() {
+      try {
+        const response = await fetch("http://localhost:5000/Ledger");
+        const data = await response.json();
+        return data;
+      } catch (error) {
+        console.log(error);
+      }
+    },
+  },
+  async created() {
+    this.results = await this.getData();
   },
 };
 </script>
-<style scoped>
-#tdcontent {
-  text-align: center;
-}
-</style>
+

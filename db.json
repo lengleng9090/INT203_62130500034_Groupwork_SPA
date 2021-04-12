@@ -6,6 +6,13 @@
       "receivable": 0,
       "payable": 200,
       "date": "02/03/2021"
+    },
+    {
+      "id": 2,
+      "description" : "ซื้อขนม 2",
+      "receivable": 0,
+      "payable": 350,
+      "date": "02/03/2021"
     }
   ]
 }
