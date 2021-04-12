@@ -1,7 +1,7 @@
 <template>
     <header class="flex justify-between place-items-center">
         <div>
-        <img class="logo" src="../../public/img/icon.png" width="75">
+        <img class="logo" src="../../public/img/iconlarge.png" width="400">
         </div>
         <div class="space-x-10">
         <router-link to="/" class="inline-block">หน้าหลัก</router-link>

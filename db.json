@@ -1,32 +1,25 @@
 {
   "Ledger": [
     {
-      "description": "ซื้อขนม",
-      "receivable": 0,
-      "payable": 200,
-      "date": "2021-04-16",
+      "description": "ขอเงินแม่",
+      "receivable": 3000,
+      "payable": 0,
+      "date": "2021-04-01",
       "id": 1
     },
     {
-      "id": 2,
-      "description": "ซื้อขนม 2",
+      "description": "ซื้อขนม 1",
+      "receivable": 0,
+      "payable": 150,
+      "date": "2021-04-02",
+      "id": 2
+    },
+    {
+      "description": "ซื้อข้าวแกงกะหรี่",
       "receivable": 0,
       "payable": 350,
-      "date": "2021-04-16"
-    },
-    {
-      "description": "ขายขนม",
-      "receivable": 5000,
-      "payable": 0,
       "date": "2021-04-06",
       "id": 3
-    },
-    {
-      "description": "ขายขนม 2",
-      "receivable": 300,
-      "payable": 0,
-      "date": "2021-04-08",
-      "id": 4
     }
   ]
 }
