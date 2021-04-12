@@ -28,7 +28,13 @@
         <td id="tdcontent"></td>
       </tr>
       <tr class="bg-red-200">
-        <td>
+        <td class="space-x-3">
+          <button>
+          <img src="../../public/img/unchecked.png" width="20" class="inline-block"> 
+          </button>
+          <button>
+          <img src="../../public/img/edit.png" width="20" class="inline-block"> 
+          </button>
           A Long and Winding Tour of the History of UI Frameworks and Tools and
           the Impact on Design
         </td>
