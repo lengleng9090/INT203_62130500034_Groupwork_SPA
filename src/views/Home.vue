@@ -53,7 +53,7 @@
     <div class="inline-block" />
   </div>
 
-  <Table :results="results" @oldRecord="showData" />
+  <Table :results="results" @oldRecord="showData" @deleteRecord="deleteData" />
 </template>
 
 <script>
@@ -173,6 +173,18 @@ export default {
       this.enteredPayable=null;
       this.enteredDate="";
       this.editId="";
+    },
+    async deleteData(deleteRecord){
+       try {
+        await fetch("http://localhost:5000/Ledger/" + deleteRecord.id, {
+          method: "DELETE",
+        });
+        this.results = this.results.filter(
+          (result) => result.id !== deleteRecord.id
+        );
+      } catch (error) {
+        console.log(error);
+      }
     }
   },
   async created() {

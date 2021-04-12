@@ -11,7 +11,7 @@
     <tbody>
       <tr v-for="result in results" :key="result.id">
         <td class="space-x-3">
-          <button>
+          <button @click="deleteData(result)">
             <img
               src="../../public/img/unchecked.png"
               width="20"
@@ -55,8 +55,10 @@ export default {
   },
   methods:{
     editData(oldRecord){
-      this.$emit('editId',oldRecord.id);
       this.$emit('oldRecord',oldRecord);
+    },
+    deleteData(deleteRecord){
+       this.$emit('deleteRecord',deleteRecord);
     }
   }
   ,
