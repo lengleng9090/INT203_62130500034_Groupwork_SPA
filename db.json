@@ -1,11 +1,11 @@
 {
   "Ledger": [
     {
-      "id": 1,
       "description": "ซื้อขนม",
       "receivable": 0,
       "payable": 200,
-      "date": "2021-04-16"
+      "date": "2021-04-16",
+      "id": 1
     },
     {
       "id": 2,
@@ -13,6 +13,34 @@
       "receivable": 0,
       "payable": 350,
       "date": "2021-04-16"
+    },
+    {
+      "description": "ขายขนม",
+      "receivable": 5000,
+      "payable": 0,
+      "date": "2021-04-06",
+      "id": 3
+    },
+    {
+      "description": "ขายขนม 2",
+      "receivable": 300,
+      "payable": 0,
+      "date": "2021-04-08",
+      "id": 4
+    },
+    {
+      "description": "ซื้อขนม 3",
+      "receivable": 0,
+      "payable": 250,
+      "date": "2021-04-15",
+      "id": 5
+    },
+    {
+      "description": "ซื้อขนม 4",
+      "receivable": 0,
+      "payable": 300,
+      "date": "2021-04-06",
+      "id": 6
     }
   ]
 }

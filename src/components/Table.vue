@@ -18,7 +18,7 @@
               class="inline-block"
             />
           </button>
-          <button>
+          <button @click="editData(result)">
             <img
               src="../../public/img/edit.png"
               width="20"
@@ -31,8 +31,8 @@
         <td id="tdcontent">{{ result.payable }}</td>
         <td id="tdcontent">{{ result.date }}</td>
       </tr>
-      <tr>
-        <td style="text-align: center">ทั้งหมด</td>
+      <tr style=" background-color:gray">
+        <td style="text-align: center;">ทั้งหมด</td>
         <td id="tdcontent">{{ totalReceivable }}</td>
         <td id="tdcontent">{{ totalPayable }}</td>
         <td id="tdcontent" class="bg-yellow-300">{{ calculatedTotal }}</td>
@@ -53,6 +53,13 @@ export default {
 
     };
   },
+  methods:{
+    editData(oldRecord){
+      this.$emit('editId',oldRecord.id);
+      this.$emit('oldRecord',oldRecord);
+    }
+  }
+  ,
   computed: {
     totalPayable: function () {
       let total = 0;
