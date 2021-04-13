@@ -10,7 +10,7 @@
     </thead>
     <tbody>
       <tr v-for="result in results" :key="result.id">
-        <td class="space-x-3">
+        <td class="space-x-3" id="tddescription">
           <button @click="deleteData(result)">
             <img
               src="../../public/img/unchecked.png"
@@ -95,6 +95,10 @@ export default {
 <style scoped>
 #tdcontent {
   text-align: center;
+}
+#tddescription {
+  max-width: 300px; 
+  word-wrap: break-word;
 }
 tr:nth-child(even) {
   background-color: #ffb7af;
