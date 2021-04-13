@@ -5,7 +5,7 @@
         <th class="w-1/2 ...">รายการ</th>
         <th class="w-1/6 ...">รายรับ</th>
         <th class="w-1/6 ...">รายจ่าย</th>
-        <th class="w-1/6 ...">ปี/เดือน/วัน</th>
+        <th class="w-1/6 ...">วัน/เดือน/ปี</th>
       </tr>
     </thead>
     <tbody>
@@ -29,7 +29,7 @@
         </td>
         <td id="tdcontent">{{ result.receivable }}</td>
         <td id="tdcontent">{{ result.payable }}</td>
-        <td id="tdcontent">{{ result.date }}</td>
+        <td id="tdcontent">{{ coverDate[result.id-1] }}</td>
       </tr>
       <tr style=" background-color:gray">
         <td style="text-align: center;">ทั้งหมด</td>
@@ -79,6 +79,14 @@ export default {
     },
     calculatedTotal: function () {
       return this.totalReceivable - this.totalPayable;
+    },
+    coverDate: function () {
+      let newDate = [];
+      for (let i = 0; i < this.results.length; i++) {
+        let coverdate = new Date(this.results[i].date);
+        newDate[i] = coverdate.getDate()+"/"+coverdate.getMonth()+"/"+coverdate.getFullYear();
+      }
+      return newDate;
     },
   },
 };

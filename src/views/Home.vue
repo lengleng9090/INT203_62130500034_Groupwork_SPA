@@ -4,10 +4,10 @@
     <div class="inline-block" />
     <form
       class="space-y-6 m-4 p-4 inline-block bg-blue-100 rounded"
-      @submit.prevent="submitForm"
+      @submit.prevent=""
     >
-      <h1 v-if="!isEdit">เพิ่มรายการใหม่</h1>
-      <h1 v-else>แก้ไขข้อมูล</h1>
+      <h1 v-if="!isEdit" class="text-2xl">เพิ่มรายการใหม่</h1>
+      <h1 v-else class="text-2xl">แก้ไขข้อมูล</h1>
       <p>
         รายการ :
         <input
@@ -47,8 +47,9 @@
       </p>
       <sup v-show="unavailableDate">*โปรดระบุ วัน/เดือน/ปี ให้เรียบร้อย</sup>
       <br />
-      <input type="submit" value="ยืนยัน" />
-      <button v-on:click="cancelEdit" v-show="isEdit">ยกเลิก</button>
+      <!-- <input type="submit" value="ยืนยัน" /> -->
+      <button v-on:click="submitForm" style="background-color: #4CAF50;" class="rounded mr-4">ยืนยัน</button>
+      <button v-on:click="cancelEdit" v-show="isEdit" style="background-color: #EF3340;" class="rounded">ยกเลิก</button>
     </form>
     <div class="inline-block" />
   </div>
@@ -82,8 +83,8 @@ export default {
   methods: {
     submitForm(){
       this.unavailableDescription = this.enteredDescription === "" ? true : false;
-      this.unavailableReceivable = this.enteredReceivable=== null ? true : false;
-      this.unavailablePayable = this.enteredPayable=== null ? true : false;
+      this.unavailableReceivable = (this.enteredReceivable=== null || this.enteredReceivable==="")? true : false;
+      this.unavailablePayable = (this.enteredPayable=== null ||this.enteredPayable==="") ? true : false;
       this.unavailableDate = this.enteredDate === "" ? true : false;
       if(this.unavailableDescription || this.unavailableReceivable || this.unavailablePayable || this.unavailableDate){
         return;
@@ -136,6 +137,10 @@ export default {
       this.enteredReceivable = oldRecord.receivable;
       this.enteredPayable = oldRecord.payable;
       this.enteredDate = oldRecord.date;
+      this.unavailableDescription =false;
+      this.unavailableReceivable =false;
+      this.unavailablePayable =false;
+      this.unavailableDate =false;
     },
     async editData(editRecord){
       try{
@@ -195,6 +200,11 @@ export default {
 <style scoped>
 sup {
   color: red;
+}
+button {
+  color: white;
+  padding: 5px 15px;
+  text-align: center;
 }
 </style>
 
