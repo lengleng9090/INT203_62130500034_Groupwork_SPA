@@ -1,7 +1,7 @@
 <template>
   <table class="table-fixed mx-auto p-5">
     <thead>
-      <tr>
+      <tr style="background-color:white;">
         <th class="w-1/2 ...">รายการ</th>
         <th class="w-1/6 ...">รายรับ</th>
         <th class="w-1/6 ...">รายจ่าย</th>
@@ -101,6 +101,9 @@ export default {
   word-wrap: break-word;
 }
 tr:nth-child(even) {
-  background-color: #ffb7af;
+  background-color: #ffcec8;
+}
+tr:nth-child(odd){
+   background-color: #e8eaeb;
 }
 </style>

@@ -2,55 +2,96 @@
   <navigation-bar />
   <div class="flex justify-between">
     <div class="inline-block" />
-    <form
-      class="space-y-6 m-4 p-4 inline-block bg-blue-100 rounded"
-      @submit.prevent=""
-    >
+    <div class="space-y-6 m-4 p-4 inline-block bg-blue-100 rounded">
       <h1 v-if="!isEdit" class="text-2xl">เพิ่มรายการใหม่</h1>
       <h1 v-else class="text-2xl">แก้ไขข้อมูล</h1>
-      <p>
-        รายการ :
-        <input
-          type="text"
-          class="border border-black rounded"
-          v-model="enteredDescription"
-        />
-      </p>
-      <sup v-show="unavailableDescription"
-        >*โปรดเติมข้อความในช่องว่างให้เรียบร้อย</sup
-      >
-      <p>
-        รายรับ :
-        <input
-          type="number"
-          class="border border-black rounded"
-          v-model="enteredReceivable"
-        />
-      </p>
-      <sup v-show="unavailableReceivable"
-        >*โปรดระบุจำนวนเงินให้เรียบร้อย (หากไม่มีให้ใส่ 0)</sup
-      >
-      <p>
-        รายจ่าย :
-        <input
-          type="number"
-          class="border border-black rounded"
-          v-model="enteredPayable"
-        />
-      </p>
-      <sup v-show="unavailablePayable"
-        >*โปรดระบุจำนวนเงินให้เรียบร้อย (หากไม่มีให้ใส่ 0)</sup
-      >
-      <p>
-        วัน/เดือน/ปี :
-        <input class="bg-white rounded" type="date" v-model="enteredDate" />
-      </p>
-      <sup v-show="unavailableDate">*โปรดระบุ วัน/เดือน/ปี ให้เรียบร้อย</sup>
+      <table>
+        <tr>
+          <td>รายการ :</td>
+          <td>
+            <input
+              type="text"
+              class="border border-black rounded"
+              v-model="enteredDescription"
+            />
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <sup v-show="unavailableDescription"
+              >*โปรดเติมข้อความในช่องว่างให้เรียบร้อย</sup
+            >
+          </td>
+        </tr>
+
+        <tr>
+          <td>รายรับ :</td>
+          <td>
+            <input
+              type="number"
+              class="border border-black rounded"
+              v-model="enteredReceivable"
+            />
+          </td>
+        </tr>
+
+        <tr>
+          <td colspan="2">
+            <sup v-show="unavailableReceivable"
+              >*โปรดระบุจำนวนเงินให้เรียบร้อย (หากไม่มีให้ใส่ 0)</sup
+            >
+          </td>
+        </tr>
+
+        <tr>
+          <td>รายจ่าย :</td>
+          <td>
+            <input
+              type="number"
+              class="border border-black rounded"
+              v-model="enteredPayable"
+            />
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <sup v-show="unavailablePayable"
+              >*โปรดระบุจำนวนเงินให้เรียบร้อย (หากไม่มีให้ใส่ 0)</sup
+            >
+          </td>
+        </tr>
+
+        <tr>
+          <td>วัน/เดือน/ปี :</td>
+          <td>
+            <input class="border border-black rounded" type="date" v-model="enteredDate" />
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <sup v-show="unavailableDate"
+              >*โปรดระบุ วัน/เดือน/ปี ให้เรียบร้อย</sup
+            >
+          </td>
+        </tr>
+      </table>
       <br />
-      <!-- <input type="submit" value="ยืนยัน" /> -->
-      <button v-on:click="submitForm" style="background-color: #4CAF50;" class="rounded mr-4">ยืนยัน</button>
-      <button v-on:click="cancelEdit" v-show="isEdit" style="background-color: #EF3340;" class="rounded">ยกเลิก</button>
-    </form>
+      <button
+        v-on:click="submitForm"
+        style="background-color: #4caf50"
+        class="rounded mr-4"
+      >
+        ยืนยัน
+      </button>
+      <button
+        v-on:click="cancelEdit"
+        v-show="isEdit"
+        style="background-color: #ef3340"
+        class="rounded"
+      >
+        ยกเลิก
+      </button>
+    </div>
     <div class="inline-block" />
   </div>
 
@@ -67,37 +108,57 @@ export default {
   },
   data() {
     return {
-      enteredDescription:"",
-      enteredReceivable:null,
-      enteredPayable:null,
-      enteredDate:"",
-      unavailableDescription:false,
-      unavailableReceivable:false,
-      unavailablePayable:false,
-      unavailableDate:false,
-      isEdit:false,
-      editId:null,
+      enteredDescription: "",
+      enteredReceivable: null,
+      enteredPayable: null,
+      enteredDate: "",
+      unavailableDescription: false,
+      unavailableReceivable: false,
+      unavailablePayable: false,
+      unavailableDate: false,
+      isEdit: false,
+      editId: null,
       results: [],
     };
   },
   methods: {
-    submitForm(){
-      this.unavailableDescription = this.enteredDescription === "" ? true : false;
-      this.unavailableReceivable = (this.enteredReceivable=== null || this.enteredReceivable==="")? true : false;
-      this.unavailablePayable = (this.enteredPayable=== null ||this.enteredPayable==="") ? true : false;
+    submitForm() {
+      this.unavailableDescription =
+        this.enteredDescription === "" ? true : false;
+      this.unavailableReceivable =
+        this.enteredReceivable === null || this.enteredReceivable === ""
+          ? true
+          : false;
+      this.unavailablePayable =
+        this.enteredPayable === null || this.enteredPayable === ""
+          ? true
+          : false;
       this.unavailableDate = this.enteredDate === "" ? true : false;
-      if(this.unavailableDescription || this.unavailableReceivable || this.unavailablePayable || this.unavailableDate){
+      if (
+        this.unavailableDescription ||
+        this.unavailableReceivable ||
+        this.unavailablePayable ||
+        this.unavailableDate
+      ) {
         return;
       }
       this.enteredReceivable = parseInt(this.enteredReceivable);
       this.enteredPayable = parseInt(this.enteredPayable);
-      if(this.isEdit ===true){
-        this.editData({description:this.enteredDescription,receivable:this.enteredReceivable,payable:this.enteredPayable,date:this.enteredDate});
+      if (this.isEdit === true) {
+        this.editData({
+          description: this.enteredDescription,
+          receivable: this.enteredReceivable,
+          payable: this.enteredPayable,
+          date: this.enteredDate,
+        });
+      } else {
+        this.postData({
+          description: this.enteredDescription,
+          receivable: this.enteredReceivable,
+          payable: this.enteredPayable,
+          date: this.enteredDate,
+        });
       }
-      else{
-        this.postData({description:this.enteredDescription,receivable:this.enteredReceivable,payable:this.enteredPayable,date:this.enteredDate});
-      }
-     
     },
     async getData() {
       try {
@@ -108,79 +169,89 @@ export default {
         console.log(error);
       }
     },
-    async postData(newRecord){
-      try{
+    async postData(newRecord) {
+      try {
         const response = await fetch("http://localhost:5000/Ledger", {
-          method:"POST",
+          method: "POST",
           headers: { "content-type": "application/json" },
           body: JSON.stringify({
             description: newRecord.description,
             receivable: newRecord.receivable,
             payable: newRecord.payable,
-            date: newRecord.date
-          })
+            date: newRecord.date,
+          }),
         });
         const data = await response.json();
         this.results = [...this.results, data];
-        this.enteredDescription="";
-      this.enteredReceivable=null;
-      this.enteredPayable=null;
-      this.enteredDate="";
-      }catch(error){
+        this.enteredDescription = "";
+        this.enteredReceivable = null;
+        this.enteredPayable = null;
+        this.enteredDate = "";
+      } catch (error) {
         console.log(error);
       }
     },
-    showData(oldRecord){
+    showData(oldRecord) {
       this.isEdit = true;
       this.editId = oldRecord.id;
       this.enteredDescription = oldRecord.description;
       this.enteredReceivable = oldRecord.receivable;
       this.enteredPayable = oldRecord.payable;
       this.enteredDate = oldRecord.date;
-      this.unavailableDescription =false;
-      this.unavailableReceivable =false;
-      this.unavailablePayable =false;
-      this.unavailableDate =false;
+      this.unavailableDescription = false;
+      this.unavailableReceivable = false;
+      this.unavailablePayable = false;
+      this.unavailableDate = false;
     },
-    async editData(editRecord){
-      try{
-      const response = await fetch("http://localhost:5000/Ledger/"+this.editId, {
-        method:"PUT",
-        headers: {
+    async editData(editRecord) {
+      try {
+        const response = await fetch(
+          "http://localhost:5000/Ledger/" + this.editId,
+          {
+            method: "PUT",
+            headers: {
               "content-type": "application/json",
-        },
-        body: JSON.stringify({
+            },
+            body: JSON.stringify({
               description: editRecord.description,
               receivable: editRecord.receivable,
               payable: editRecord.payable,
-              date: editRecord.date
-            })
-      });
-      const data = await response.json();
-      this.results = this.results.map((result)=>
-       result.id === this.editId 
-       ?{...result,description:data.description,receivable:data.receivable,payable:data.payable,date:data.date}
-       : result);
-       this.isEdit = false;
-       this.enteredDescription="";
-      this.enteredReceivable=null;
-      this.enteredPayable=null;
-      this.enteredDate="";
-      this.editId="";
-      }catch(error){
+              date: editRecord.date,
+            }),
+          }
+        );
+        const data = await response.json();
+        this.results = this.results.map((result) =>
+          result.id === this.editId
+            ? {
+                ...result,
+                description: data.description,
+                receivable: data.receivable,
+                payable: data.payable,
+                date: data.date,
+              }
+            : result
+        );
+        this.isEdit = false;
+        this.enteredDescription = "";
+        this.enteredReceivable = null;
+        this.enteredPayable = null;
+        this.enteredDate = "";
+        this.editId = "";
+      } catch (error) {
         console.log(error);
       }
     },
-    cancelEdit(){
+    cancelEdit() {
       this.isEdit = false;
-      this.enteredDescription="";
-      this.enteredReceivable=null;
-      this.enteredPayable=null;
-      this.enteredDate="";
-      this.editId="";
+      this.enteredDescription = "";
+      this.enteredReceivable = null;
+      this.enteredPayable = null;
+      this.enteredDate = "";
+      this.editId = "";
     },
-    async deleteData(deleteRecord){
-       try {
+    async deleteData(deleteRecord) {
+      try {
         await fetch("http://localhost:5000/Ledger/" + deleteRecord.id, {
           method: "DELETE",
         });
@@ -190,7 +261,7 @@ export default {
       } catch (error) {
         console.log(error);
       }
-    }
+    },
   },
   async created() {
     this.results = await this.getData();
