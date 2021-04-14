@@ -9,9 +9,10 @@
         <tr>
           <td>รายการ :</td>
           <td>
-            <input
-              type="text"
-              class="border border-black rounded"
+            <textarea
+              class="p-1 h-20 border border-black rounded"
+              spellcheck="false"
+              placeholder="เพิ่มรายการใหม่"
               v-model="enteredDescription"
             />
           </td>
@@ -64,7 +65,11 @@
         <tr>
           <td>วัน/เดือน/ปี :</td>
           <td>
-            <input class="border border-black rounded" type="date" v-model="enteredDate" />
+            <input
+              class="border border-black rounded"
+              type="date"
+              v-model="enteredDate"
+            />
           </td>
         </tr>
         <tr>
