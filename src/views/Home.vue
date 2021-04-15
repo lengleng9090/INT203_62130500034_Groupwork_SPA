@@ -99,17 +99,24 @@
     </div>
     <div class="inline-block" />
   </div>
+  <SearchBar @searchValue="useSearch" />
 
-  <Table :results="results" @oldRecord="showData" @deleteRecord="deleteData" />
+  <Table
+    :results="results"
+    :searchV="searchV"
+    @oldRecord="showData"
+    @deleteRecord="deleteData"
+  />
 </template>
 
 <script>
 import Table from "@/components/Table.vue";
-
+import SearchBar from "@/components/SearchBar.vue";
 export default {
   name: "Home",
   components: {
     Table,
+    SearchBar,
   },
   data() {
     return {
@@ -124,6 +131,7 @@ export default {
       isEdit: false,
       editId: null,
       results: [],
+      searchV: null,
     };
   },
   methods: {
@@ -266,6 +274,9 @@ export default {
       } catch (error) {
         console.log(error);
       }
+    },
+    useSearch(value) {
+      this.searchV = value;
     },
   },
   async created() {

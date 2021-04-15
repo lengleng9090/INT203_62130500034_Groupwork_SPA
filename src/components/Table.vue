@@ -9,7 +9,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr v-for="result in results" :key="result.id">
+      <tr v-for="result in filterResult" :key="result.id">
         <td class="space-x-3" id="tddescription">
           <button @click="deleteData(result)">
             <img
@@ -47,6 +47,9 @@ export default {
     results: {
       type: Array,
     },
+    searchV:{
+      type: String
+    }
   },
   data() {
     return {
@@ -88,6 +91,12 @@ export default {
       }
       return newDate;
     },
+    filterResult: function () {
+      if(this.searchV == null){
+        return this.results;
+      }else
+      return this.results.filter(result => result.description.includes(this.searchV));
+    }
   },
 };
 
